@@ -1,0 +1,36 @@
+{
+  "name": "stock-analysis-valuedge",
+  "displayName": "Stock Analysis by ValuEdge",
+  "version": "1.2.0",
+  "description": "Stock Analysis by ValuEdge: research public stocks in Claude with fundamental analysis, intrinsic value and DCF-based valuation, daily technical indicators, and stock comparisons. Read-only MCP tools with OAuth and plan-based research allowances.",
+  "author": {
+    "name": "ValuEdge",
+    "url": "https://valuedge.app"
+  },
+  "homepage": "https://valuedge.app/connect",
+  "keywords": [
+    "stock analysis",
+    "stock analyzer",
+    "stock research",
+    "fundamental analysis",
+    "technical analysis",
+    "stock valuation",
+    "intrinsic value",
+    "DCF valuation",
+    "fair value",
+    "margin of safety",
+    "equity research",
+    "investment research",
+    "stock comparison",
+    "financial statement analysis",
+    "RSI",
+    "moving averages"
+  ],
+  "icon": "./assets/logo.png",
+  "documentationUrl": "https://valuedge.app/connect",
+  "supportUrl": "https://valuedge.app/contact",
+  "privacyPolicyUrl": "https://valuedge.app/privacy",
+  "termsOfServiceUrl": "https://valuedge.app/terms",
+  "repository": "https://github.com/kkfir13/stock-analysis-valuedge",
+  "license": "LicenseRef-ValuEdge-Plugin"
+}

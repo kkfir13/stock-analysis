@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "valuedge-stock-analysis": {
+      "type": "http",
+      "url": "https://valuedge.app/mcp/stock-analysis"
+    }
+  }
+}
