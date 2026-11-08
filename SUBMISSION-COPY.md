@@ -28,6 +28,6 @@ Read-only: public ticker search and authenticated valuation, fundamental, techni
 5. Confirm every test in Claude or MCP Inspector before selecting Self-tested. The checks are not certified solely by this ZIP.
 
 Documentation: https://valuedge.app/connect
-Repository: https://github.com/kkfir13/stock-analysis-valuedge
+Repository: https://github.com/kkfir13/stock-analysis
 Support: https://valuedge.app/contact
 Privacy: https://valuedge.app/privacy
