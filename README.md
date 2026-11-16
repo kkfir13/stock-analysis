@@ -1,91 +1,83 @@
-# Stock Analysis by ValuEdge
+# Stock Analysis for Claude — Intrinsic Value, Fundamentals & Daily Technical Analysis (ValuEdge MCP)
 
-**Stock analysis, valuation, fundamentals and daily technical research in Claude.**
+**Analyze public stocks in Claude using ValuEdge's focused, read-only Stock Analysis MCP plugin.** Retrieve available **stock valuation and fair value estimates**, fundamental financial evidence, daily technical indicators, and stock comparisons—with dates and limitations instead of invented numbers.
 
-This plugin provides a focused, read-only workflow for researching publicly
-listed stocks using the ValuEdge remote MCP server. It helps Claude retrieve
-source-dated financial evidence and valuation model estimates, rather than
-substituting invented values or promising investment returns.
+[ValuEdge connection guide](https://valuedge.app/connect?utm_source=github&utm_medium=readme&utm_campaign=mcp_discovery&utm_content=stock-analysis) · [Full ValuEdge connector for Claude](https://claude.ai/directory/valuedge) · [Privacy policy](https://valuedge.app/privacy)
 
-- MCP endpoint: **https://valuedge.app/mcp/stock-analysis**
-- Documentation: https://valuedge.app/connect
-- Privacy policy: https://valuedge.app/privacy
-- Support: https://valuedge.app/contact
-- Terms: https://valuedge.app/terms
+- **Focused remote MCP endpoint:** `https://valuedge.app/mcp/stock-analysis`
+- **Host:** Claude, through the supported plugin/connection flow
+- **Authentication:** Public company/ticker discovery may be available without sign-in; metered analysis requires the official ValuEdge OAuth flow and applicable plan allowances
+- **Scope:** Read-only stock research. No portfolios, watchlist edits, manual record changes, or brokerage trades
 
-## What you can do
+## What can I ask a Claude stock analysis plugin?
 
-| MCP tool | Purpose | Access |
+| User intent | Example Claude prompt | Tool |
 | --- | --- | --- |
-| `search_securities` | Resolve company names and stock tickers | Public discovery |
-| `get_stock_valuation` | Read ValuEdge fair value, model evidence and margin of safety | ValuEdge OAuth, plan-metered |
-| `get_stock_fundamentals` | Inspect financial statement metrics and reporting periods | ValuEdge OAuth, plan-metered |
-| `get_stock_technicals` | Read validated daily RSI, SMA20/50/200, momentum, volume, volatility and trend coverage | ValuEdge OAuth, plan-metered |
-| `compare_stocks` | Compare available valuation results across 2–6 stock tickers | ValuEdge OAuth, plan-metered |
+| Stock intrinsic value | "Analyze AAPL's current ValuEdge fair value, model assumptions and margin of safety. Include data dates." | `get_stock_valuation` |
+| Company fundamental analysis | "Explain MSFT's revenue, profitability, balance-sheet and cash-flow evidence by reporting period." | `get_stock_fundamentals` |
+| Daily stock technical analysis | "Check NVDA's available end-of-day RSI (14), SMA 20/50/200, volume and trend indicators." | `get_stock_technicals` |
+| Compare stock valuations | "Compare GOOGL, MSFT and AAPL on fair value and margin of safety, noting missing fields." | `compare_stocks` |
+| Resolve a ticker | "Find the correct public stock listing for Alphabet before comparing the shares." | `search_securities` |
 
-The bundled skills help Claude select only the tools needed, explain periods
-and data-as-of dates, distinguish model valuations from observed facts, and
-report unavailable or stale evidence instead of guessing. An analysis involving
-several tools can consume more than one unit of the account's research allowance.
+**What this is not:** An automated trading system, stock price prediction guarantee, live intraday quote service, portfolio tracker, or full-market stock screener. For screening, dividends and personal portfolios, see the [broader ValuEdge MCP connector](https://github.com/kkfir13/valuedge-mcp).
 
-## Example requests
+## Tools and access
 
-1. **Stock analysis:** “Analyze AAPL's fundamentals and intrinsic value. Give me the dates of the evidence.”
-2. **Technical analysis:** “Review NVDA's latest available daily RSI, SMA20/50/200, momentum and volume.”
-3. **Stock comparison:** “Compare MSFT and GOOGL on fair value and margin of safety.”
+| MCP tool | Description | Access |
+| --- | --- | --- |
+| `search_securities` | Resolve supported company names and stock tickers | Public discovery |
+| `get_stock_valuation` | Read the available model-based fair value, method, evidence and margin of safety | OAuth; plan-metered |
+| `get_stock_fundamentals` | Review sourced financial statement metrics, history and reporting periods | OAuth; plan-metered |
+| `get_stock_technicals` | Read available daily RSI, SMA 20/50/200, momentum, relative volume, volatility and trend evidence | OAuth; plan-metered |
+| `compare_stocks` | Compare valuation results for 2–6 confirmed stock tickers | OAuth; plan-metered |
 
-## Installation
+The bundled workflow skills select relevant tools, preserve source/as-of dates, distinguish observed financial statements from valuation-model outputs, and explicitly flag unavailable or stale evidence. A request that invokes several tools may consume more than one unit of the user's research allowance.
 
-Install this plugin through Claude after its directory approval, or from this
-GitHub repository using a supported plugin installation flow. When prompted,
-connect a ValuEdge account using the official OAuth browser authorization.
-No API key or password should be pasted into Claude or stored in this repo.
-A brokerage account connection is **not** required.
+## How to install Stock Analysis in Claude
 
-The plugin contains `.claude-plugin/plugin.json`, `.mcp.json` and five workflow
-skills. It contains no local scripts executed on installation, no npx/uvx
-launchers, no private service keys and no trading functionality.
+1. Install the **Stock Analysis by ValuEdge** plugin from its Claude listing **if published**, or use a supported developer-plugin installation method for this repository. A public GitHub repo alone does not mean a directory listing is approved.
+2. Follow Claude's connector prompt and authorize the ValuEdge account through its official OAuth browser flow when metered stock research is requested. Do not paste API keys, passwords, or tokens into the conversation.
+3. Begin with one of the example prompts above. No brokerage account connection is required for stock research.
 
-## Data sent to ValuEdge
+The plugin includes `.claude-plugin/plugin.json`, `.mcp.json` and five focused workflow skills. It bundles no local install-time scripts, npx/uvx launchers, private service keys, or brokerage trading functionality.
 
-This plugin talks to the remotely hosted ValuEdge MCP server over HTTPS.
-When you use its tools, Claude may transmit the information needed to answer
-your request, including:
+## FAQ: Stock valuation and analysis with Claude
 
-- the stock names/ticker symbols, selected comparisons, tool arguments and
-  research request parameters;
-- an OAuth bearer access token in authenticated requests;
-- account-identifying and entitlement information needed for authentication,
-  rate limiting and metering, as handled by the remote ValuEdge service.
+### Can Claude calculate a stock's intrinsic value with ValuEdge?
+The plugin can retrieve **ValuEdge's available model-derived intrinsic/fair-value estimate**, supporting model information and margin of safety for a supported ticker. It should not invent a missing value or imply that an estimate is an observed market price.
 
-ValuEdge returns the available financial, valuation and daily technical
-evidence, source dates, and relevant usage/availability states. Financial
-research requests are processed by the remote service under
-https://valuedge.app/privacy. Network requests to ValuEdge are necessary for
-the plugin to function. This repository does **not** receive, contain or
-store the user's OAuth token or private account credentials.
+### Does it do discounted cash flow (DCF) valuation?
+It can report the valuation methods and model evidence returned by `get_stock_valuation`, which may include DCF-derived components where available. Not every company has the same model or data coverage.
 
-This focused Stock Analysis server does not expose private portfolios, watchlist
-editing, portfolio editing, account mutation or brokerage trading tools.
+### Does it support RSI and moving averages?
+It can retrieve available **daily/end-of-day** RSI and SMA 20, 50 and 200 readings, as well as other validated daily technical evidence. This is not live intraday technical analysis.
 
-## Limits and accuracy
+### Can it screen stocks or manage my portfolio?
+No. This **focused Stock Analysis MCP endpoint** contains neither stock screening nor private portfolio/watchlist operations. Use the [full ValuEdge connection](https://valuedge.app/connect?utm_source=github&utm_medium=readme&utm_campaign=mcp_discovery&utm_content=stock-analysis-full) for supported broader tools.
 
-- The technical endpoint returns daily/end-of-day coverage, **not** live
-  intraday market prices, trade signals or live candlestick data.
-- Financial coverage and technical data freshness may vary by stock.
-- Model-derived fair values are estimates, not guaranteed price targets.
-- The server uses each authenticated user's existing ValuEdge account allowances;
-  the plugin does not grant additional access or bypass limits.
-- No investment outcome is guaranteed.
+### Do I need an API key or brokerage account?
+No copied API key or connected brokerage account is required. ValuEdge OAuth and an eligible plan may be required to use the metered analysis tools.
 
-## Development, licensing and review
+## Financial data accuracy and limits
 
-Manifest metadata and skills are in this repository so reviewers can inspect
-exactly which service the plugin contacts. See `LICENSE` for permission to
-install and use the published plugin. The backend and datasets are not part of
-this repository.
+- Financial and daily technical coverage varies by ticker and data date.
+- Daily indicators are not intraday trade signals or live candlestick data.
+- Fair value and margin of safety are model-based estimates, not guaranteed price targets.
+- The plugin respects the signed-in user's ValuEdge research quotas; it does not create an additional allowance.
+- Never infer a buy, sell, or hold instruction or a guaranteed investment result from the tool output.
 
-`REVIEW-TESTS.md` provides a non-exhaustive manual smoke-test plan. A valid
-archive and manifest do not themselves prove production OAuth and data queries
-work; live acceptance testing is required prior to marking the integration
-self-tested.
+## Privacy: What data is transmitted?
+
+This plugin invokes the remotely hosted HTTPS ValuEdge Stock Analysis MCP server. Claude may transmit stock names/tickers, comparison selections, requested tool parameters, an OAuth bearer token for authorized requests, and account/entitlement information as required for access control, rate limiting, and metering.
+
+ValuEdge returns available source-dated financial, valuation, and technical evidence, plus relevant availability/usage status. The GitHub repository does **not** store account credentials or OAuth tokens. ValuEdge processes remote requests as described in its [privacy policy](https://valuedge.app/privacy); the AI client also has its own privacy practices.
+
+The focused server does not provide private portfolios, watchlist or portfolio editing, or brokerage trading tools.
+
+## Development and review
+
+Review the published manifest, tools, and five workflow skills in this repository. The backend and financial datasets are not distributed here. See [LICENSE](LICENSE) and [REVIEW-TESTS.md](REVIEW-TESTS.md).
+
+A valid manifest or test archive does **not** establish successful live OAuth or production analysis. End-to-end verification is required before claiming that a specific client flow has been tested.
+
+[Help and contact](https://valuedge.app/contact) · [Terms](https://valuedge.app/terms) · [Full MCP documentation](https://github.com/kkfir13/valuedge-mcp)
